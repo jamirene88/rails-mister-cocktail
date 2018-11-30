@@ -9,9 +9,17 @@ require 'json'
 require 'open-uri'
 require 'byebug'
 
-Ingredient.create(name: "lemon")
-Ingredient.create(name: "ice")
-Ingredient.create(name: "mint leaves")
+
+
+puts "creating ingredients"
+url= "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+ingredients_page = open(url).read
+ingredients = JSON.parse(ingredients_page)
+
+ingredients["drinks"].each do |drink|
+  Ingredient.create(name: drink['strIngredient1'])
+end
+puts "created ingredients"
 
 puts "creating cocktails"
 url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail'
@@ -22,4 +30,4 @@ cocktails['drinks'].each do |drink|
   Cocktail.create(name: drink["strDrink"])
 
 end
-puts "created #{cocktails.length} cocktails"
+puts "created cocktails"
