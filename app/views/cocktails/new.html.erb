@@ -1,8 +1,8 @@
 <h1>This is a new cocktail</h1>
 
-<%= simple_form_for [@cocktail, @dose] do |f| %>
-  Name:  <%= f.input :name %><br />
-  Ingredient: <%= f.association :ingredient %><br />
+ <%= simple_form_for @cocktail do |f| %>
+        <%= f.input :name %>
+        <%= f.button :submit, class: 'btn btn-primary' %>
+      <% end %>
 
-  <%= f.button :submit %>
-<% end %>
+  <%= link_to "Back to all cocktails", cocktails_path %>
